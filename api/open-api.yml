@@ -1,0 +1,101 @@
+---
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: php8-symfony-api-starter
+  description: An example API written in Symfony
+servers:
+  - url: 'http://symfony.localhost:1337'
+    description: Localhost
+tags:
+  - name: Email
+    description: Email based endpoints
+paths:
+  /emails:
+    get:
+      summary: Shows all existing e-mail templates
+      description: Shows all existing e-mail templates
+      operationId: list
+      tags:
+        - Email
+      responses:
+        '200':
+          description: Show available e-mails
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmailsResponse'
+  /emails/example:
+    post:
+      description: Sends an example email
+      tags:
+        - Email
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmailExampleRequest'
+      responses:
+        '200':
+          description: Sends a payment request e-mail
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmailExampleResponse'
+components:
+  responses:
+    BadRequest:
+      description: 'Bad Request - The server cannot or will not process the request due to an apparent client
+      error (e.g., malformed request syntax, size too large, invalid request message framing, or deceptive request
+      routing)'
+    NotFound:
+      description: 'Not Found - The requested resource could not be found but may be available in the future.
+      Subsequent requests by the client are permissible.'
+    InternalServerError:
+      description: 'Internal Server Error - A generic error message, given when an unexpected condition was encountered
+      and no more specific message is suitable.'
+  schemas:
+    EmailsResponse:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/EmailList'
+      required:
+        - data
+    EmailExampleResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            isSent:
+              type: boolean
+            errors:
+              type: array
+              items:
+                type: string
+      required:
+        - data
+    EmailList:
+      type: object
+      properties:
+        templates:
+          type: array
+          items:
+            type: string
+            example: 'example'
+    EmailExampleRequest:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+          format: email
+      required:
+        - firstName
+        - lastName
+        - email
+...

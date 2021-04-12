@@ -1,0 +1,58 @@
+---
+version: '3.9'
+services:
+    postgres-db:
+      container_name: starter-postgres
+      image: postgres:13.2-alpine
+      environment:
+        POSTGRES_DB: starter
+        POSTGRES_USER: sa
+        POSTGRES_PASSWORD: 123456
+      ports:
+        - "5432:5432"
+      networks:
+        - starter-network
+      volumes:
+        - starter-postgres:/data/postgres
+
+    php:
+        container_name: starter-php
+        build:
+            context: ../
+            dockerfile: ./build/php-fpm/Dockerfile
+            args:
+                ENABLE_PHP_XDEBUG: 1
+        ports:
+            - "9000:9001"
+        volumes:
+            - ../src:/var/www/symfony:cached
+            - ../logs/symfony:/var/www/symfony/var/log:cached
+        depends_on:
+            - postgres-db
+        networks:
+            - starter-network
+
+    nginx:
+        container_name: starter-nginx
+        build:
+          context: ../
+          dockerfile: ./build/nginx/Dockerfile
+        ports:
+            - "1337:80"
+        depends_on:
+            - php
+        volumes:
+            - starter-nginx:/var/log/nginx:cached
+            - starter-symfony:/var/www/symfony:cached
+        networks:
+            - starter-network
+
+networks:
+  starter-network:
+
+volumes:
+  starter-postgres:
+  starter-nginx:
+  starter-symfony:
+
+...
