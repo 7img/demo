@@ -1,6 +1,6 @@
 # php8-symfony-demo
 
-This is a work in progress Symfony PHP8 demo that I use to play around with Symfony. It currently sends an example e-mail.
+This is a (work in progress) Symfony PHP8 demo that I use to play around with Symfony. 
 
 # How to get started
 

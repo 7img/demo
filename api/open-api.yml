@@ -2,8 +2,8 @@
 openapi: 3.0.0
 info:
   version: 1.0.0
-  title: php8-symfony-api-starter
-  description: An example API written in Symfony
+  title: php8-symfony-demo
+  description: A demo API written in Symfony and PHP 8
 servers:
   - url: 'http://symfony.localhost:1337'
     description: Localhost
