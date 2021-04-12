@@ -11,7 +11,7 @@ This is a work in progress Symfony PHP8 demo that I use to play around with Symf
 
 # ENV
 
-Sign up for Mailtrap or replace this string with your credentials or another provider
+Sign up for Mailtrap and replace this string with your credentials or use another provider. See https://symfony.com/doc/current/mailer.html#using-built-in-transports.
 ```
 MAILER_DSN=smtp://xxxxxx:xxxxxxx@smtp.mailtrap.io:2525?encryption=tls&auth_mode=login
 ```
